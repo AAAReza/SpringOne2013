@@ -6,10 +6,8 @@
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
     <util:list id="interceptors">
-        <ref local="disableBrowserCachingInterceptor"/>
-
+        <ref bean="disableBrowserCachingInterceptor"/>
     </util:list>
-
 
     <bean id="disableBrowserCachingInterceptor" class="com.incept5.interceptors.DisableBrowserCachingInterceptor"/>
 

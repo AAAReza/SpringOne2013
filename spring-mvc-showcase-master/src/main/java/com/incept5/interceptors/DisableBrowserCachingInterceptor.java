@@ -1,11 +1,11 @@
 package com.incept5.interceptors;
 
-/**
- * Created with IntelliJ IDEA.
- * User: John Thompson
- * Date: 9/9/13
- * Time: 12:55 PM
- */
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 public class DisableBrowserCachingInterceptor extends HandlerInterceptorAdapter {
 
     public void postHandle(final HttpServletRequest request, final HttpServletResponse response,

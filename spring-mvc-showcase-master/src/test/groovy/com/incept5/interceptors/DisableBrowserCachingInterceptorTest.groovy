@@ -1,28 +1,39 @@
+package com.incept5.interceptors
 
+import org.springframework.samples.mvc.simple.SimpleController
+import org.springframework.test.web.servlet.MockMvc
+import org.springframework.test.web.servlet.setup.MockMvcBuilders
+import org.springframework.web.servlet.HandlerInterceptor
+import spock.lang.Specification
 
-def setup() {
-    dictionaryService = Mock(DictionaryService)
-    taxonomyService = Mock(TaxonomyService)
-    analyticsService = Mock(AnalyticsService)
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
-    controller = new HomeController(analyticsService, taxonomyService, dictionaryService)
+public class DisableBrowserCachingInterceptorTest extends Specification {
 
-    HandlerInterceptor interceptor = new DisableBrowserCachingInterceptor()
+    def controller
+    MockMvc mockMvc
 
-    mockMvc = MockMvcBuilders
-            .standaloneSetup(controller)
-            .addInterceptors(interceptor)
-            .build();
-}
+    def setup() {
+        controller = new SimpleController()
 
-def "Test Get"() {
-    when:
-    def result = mockMvc.perform(get('/')).andReturn()
+        HandlerInterceptor interceptor = new DisableBrowserCachingInterceptor()
 
-    def foo = 1
-    then:
-    result.response.headerNames.size() == 4
-    result.response.getHeader('Cache-Control')
-    result.response.getHeader('Pragma')
-    result.response.getHeader('Expires')
+        mockMvc = MockMvcBuilders
+                .standaloneSetup(controller)
+                .addInterceptors(interceptor)
+                .build();
+    }
+
+    def "Test Get"() {
+        when:
+        def result = mockMvc.perform(get('/simple')).andReturn()
+
+        def foo = 1
+        then:
+        result.response.headerNames.size() == 5
+        result.response.getHeader('Cache-Control')
+        result.response.getHeader('Pragma')
+        result.response.getHeader('Expires')
+    }
+
 }

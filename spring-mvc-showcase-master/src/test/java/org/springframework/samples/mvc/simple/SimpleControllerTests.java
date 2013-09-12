@@ -5,17 +5,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.springframework.test.web.servlet.MockMvc;
 
 public class SimpleControllerTests {
 
-	@Test
-	public void simple() throws Exception {
-		standaloneSetup(new SimpleController()).build()
-			.perform(get("/simple"))
-			.andExpect(status().isOk())
-			.andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
-			.andExpect(content().string("Hello world!"));
-	}
+    private MockMvc mockMvc;
+
+    @Before()
+    public void setup() {
+        mockMvc = standaloneSetup(new SimpleController()).build();
+    }
+
+    @Test
+    public void simple() throws Exception {
+        mockMvc.perform(get("/simple"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType("text/plain;charset=ISO-8859-1"))
+                .andExpect(content().string("Hello world!"));
+    }
 
 }

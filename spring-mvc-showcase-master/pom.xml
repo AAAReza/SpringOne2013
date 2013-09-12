@@ -236,6 +236,14 @@
             </exclusions>
         </dependency>
 
+        <!--Groovy Rest Client-->
+        <dependency>
+            <groupId>org.codehaus.groovy.modules.http-builder</groupId>
+            <artifactId>http-builder</artifactId>
+            <version>0.5.2</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
     <repositories>
         <!-- For testing against latest Spring snapshots -->
